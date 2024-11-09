@@ -43,6 +43,7 @@ const SwipeableAction = ({
                 }}
                 drag='x'
                 dragConstraints={{ left: -60, right: 0 }}
+                dragTransition={{ bounceStiffness: 250, bounceDamping: 50 }}
                 dragSnapToOrigin={true}
                 dragElastic={0}
             >
