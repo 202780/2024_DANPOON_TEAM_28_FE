@@ -13,11 +13,14 @@ const meta: Meta = {
         },
     },
     argTypes: {
-        Children: {
+        children: {
             description: '스와이프 가능한 컴포넌트',
         },
         backgroundComponent: {
-            description: '스와이프 배경 컴포넌트',
+            description: '스와이프 배경 컴포넌트, 없으면 빨간색 삭제 네모.',
+        },
+        onSwipeLeft: {
+            description: '왼쪽으로 스와이프 했을 때 실행되는 콜백 함수',
         },
     },
 };
@@ -37,5 +40,8 @@ export const Primary: Story = {
                 }}
             />
         ),
+        onSwipeLeft: () => {
+            alert('swiped left');
+        },
     },
 };

@@ -1,36 +1,37 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, SxProps, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
+import * as style from '@/components/SwipeableAction.style';
 
 const SwipeableAction = ({
     children,
-    // onSwipeLeft,
+    onSwipeLeft,
     backgroundComponent,
+    sx,
 }: {
     children: React.ReactNode;
-    // onSwipeLeft: () => void;
+    onSwipeLeft: () => void;
     backgroundComponent?: React.ReactNode;
+    sx?: SxProps;
 }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleDragEnd = (event: MouseEvent, info: any) => {
+        if (info.offset.x <= -60) {
+            onSwipeLeft();
+        }
+    };
+
     return (
         <Box
             sx={{
-                backgroundColor: '#fff',
                 position: 'relative',
+                ...sx,
             }}
         >
             {backgroundComponent || (
                 <Stack
-                    sx={{
-                        position: 'absolute',
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                        zIndex: 0,
-                        width: '3.75rem',
-                        height: '4.5rem',
-                        backgroundColor: '#E07590', // TODO: theme 설정 이후 바꾸기
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    sx={style.deleteButtonStyle}
                 >
                     <Typography>삭제</Typography>
                 </Stack>
@@ -43,6 +44,7 @@ const SwipeableAction = ({
                 }}
                 drag='x'
                 dragConstraints={{ left: -60, right: 0 }}
+                onDragEnd={handleDragEnd}
                 dragTransition={{ bounceStiffness: 250, bounceDamping: 50 }}
                 dragSnapToOrigin={true}
                 dragElastic={0}
