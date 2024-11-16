@@ -28,3 +28,12 @@ export const mapPageStyle: SxProps<Theme> = {
   background: 'var(--Backgrounds-Primary, #FFF)',
   boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
 };
+
+
+export const inputBaseStyle: SxProps<Theme> ={
+    flex: 1,
+    fontFamily: 'Pretendard',
+    fontSize: '1rem',
+    fontWeight: 500,
+    lineHeight: '20px',
+};
