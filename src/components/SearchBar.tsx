@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, InputBase } from '@mui/material';
 import * as style from './SearchBar.style';
 import SearchIcon from './Icons/SearchIcon';
+import { debounce } from 'lodash';
 
 type SearchBarProps = {
     page: 'infoBoard' | 'mapPage';
