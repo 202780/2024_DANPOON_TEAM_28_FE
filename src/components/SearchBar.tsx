@@ -1,6 +1,5 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import InputBase from '@mui/material/InputBase';
+import { Box, InputBase } from '@mui/material';
 import * as style from './SearchBar.style';
 import SearchIcon from './Icons/SearchIcon';
 
