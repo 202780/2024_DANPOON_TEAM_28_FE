@@ -1,13 +1,6 @@
-import React from 'react';
-import { createSvgIcon } from '@mui/material/utils';
-import { IconButton } from '@mui/material';
+import { createSvgIcon } from '@mui/material';
 
-type SearchIconProps = {
-    color?: 'white' | 'green';
-    onSearchClick?: () => void;
-};
-
-const Search = createSvgIcon(
+const SearchIcon = createSvgIcon(
     <svg viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
         <g id='Group 10'>
             <path
@@ -28,23 +21,7 @@ const Search = createSvgIcon(
             />
         </g>
     </svg>,
-    'Search'
+    'SearchIcon'
 );
-
-const SearchIcon: React.FC<SearchIconProps> = ({ color, onSearchClick }) => {
-    const mappedColor = color === 'green' ? '#58883f' : '#ffffff';
-
-    return (
-        <IconButton
-            onClick={onSearchClick}
-            aria-label='검색 아이콘'
-            sx={{
-                color: mappedColor,
-            }}
-        >
-            <Search sx={{ color: 'inherit' }} />
-        </IconButton>
-    );
-};
 
 export default SearchIcon;

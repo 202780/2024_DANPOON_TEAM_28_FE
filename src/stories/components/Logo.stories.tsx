@@ -14,12 +14,12 @@ const meta: Meta = {
     argTypes: {
         size: {
             control: 'radio',
-            options: ['small', 'large'],
-            description: '로고 크기',
+            options: ['small', 'medium', 'large'],
+            description: '로고 크기 설정',
         },
         showName: {
             control: 'boolean',
-            description: '아이템 이름 표시 여부',
+            description: '라이블리 이름 표시 여부',
         },
     },
 };
@@ -42,9 +42,24 @@ export const LargeWithName: Story = {
     },
 };
 
-export const LogoOnly: Story = {
+export const SmallLogoOnly: Story = {
+    args: {
+        size: 'small',
+        showName: false,
+    },
+};
+
+export const MediumLogoOnly: Story = {
+    args: {
+        size: 'medium',
+        showName: false,
+    },
+};
+
+export const LargeLogoOnly: Story = {
     args: {
         size: 'large',
         showName: false,
     },
 };
+

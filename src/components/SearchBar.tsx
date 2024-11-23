@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, InputBase } from '@mui/material';
+import { Box, IconButton, InputBase } from '@mui/material';
 import * as style from './SearchBar.style';
 import SearchIcon from './Icons/SearchIcon';
 import { debounce } from 'lodash';
 
-type SearchBarProps = {
+interface ISearchBarProps {
     page: 'infoBoard' | 'mapPage';
     onSearch?: (searchText: string) => void;
-};
+}
 
-const SearchBar: React.FC<SearchBarProps> = ({ page, onSearch }) => {
+const SearchBar: React.FC<ISearchBarProps> = ({ page, onSearch }) => {
     const [searchText, setSearchText] = useState('');
 
+    // 실시간 검색 결과가 필요한 경우 사용
     const debouncedSearch = useCallback(
         debounce((text: string) => {
             if (onSearch) onSearch(text);
@@ -63,13 +64,17 @@ const SearchBar: React.FC<SearchBarProps> = ({ page, onSearch }) => {
                     }
                 }}
             />
-            <SearchIcon
-                color={page === 'infoBoard' ? 'white' : 'green'}
-                onSearchClick={() => {
-                    if (onSearch) onSearch(searchText);
-                    // setSearchText('');
+            <IconButton
+                sx={{
+                    color: page === 'infoBoard' ? 'white' : 'livelyPrimary.2',
+                    maxWidth: '20px',
                 }}
-            />
+                onClick={() => {
+                    if (onSearch) onSearch(searchText);
+                }}
+            >
+                <SearchIcon sx={{ fontSize: '1.3rem', paddingRight: '7px' }} />
+            </IconButton>
         </Box>
     );
 };

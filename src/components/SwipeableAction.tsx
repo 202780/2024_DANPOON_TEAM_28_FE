@@ -1,6 +1,6 @@
 import { Box, Stack, SxProps, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
-import * as style from '@/components/SwipeableAction.style';
+import * as style from './SwipeableAction.style';
 
 const SwipeableAction = ({
     children,
@@ -14,7 +14,7 @@ const SwipeableAction = ({
     sx?: SxProps;
 }) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleDragEnd = (event: MouseEvent, info: any) => {
+    const handleDragEnd = (_: MouseEvent, info: any) => {
         if (info.offset.x <= -60) {
             onSwipeLeft();
         }
@@ -33,7 +33,9 @@ const SwipeableAction = ({
                     alignItems={'center'}
                     sx={style.deleteButtonStyle}
                 >
-                    <Typography>삭제</Typography>
+                    <Typography variant={'body3Medium'} color={'white'}>
+                        삭제
+                    </Typography>
                 </Stack>
             )}
             <Box
