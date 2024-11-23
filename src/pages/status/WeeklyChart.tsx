@@ -1,60 +1,72 @@
-import React from 'react';
-import { BarChart, LineChart } from '@mui/x-charts';
-import Box from '@mui/material/Box';
+import { Cell, BarChart, Bar, XAxis, YAxis, ReferenceLine } from 'recharts';
+import { Box,} from '@mui/material';
+import * as style from './WeeklyChart.style';
 
-interface WeeklyChartProps {
-  dataset: { day: string; value: number }[];
-}
+const data = [
+    { day: '일', value: 40 },
+    { day: '월', value: 60 },
+    { day: '화', value: 20 },
+    { day: '수', value: 100 },
+    { day: '목', value: 50 },
+    { day: '금', value: 30 },
+    { day: '토', value: 70 },
+];
 
-const WeeklyChart: React.FC<WeeklyChartProps> = ({ dataset }) => {
-  // 평균값 계산
-  const averageValue = dataset.reduce((sum, item) => sum + item.value, 0) / dataset.length;
+const getColor = (value: number) => {
+    if (value <= 30) return '#E9F4D2';
+    if (value <= 70) return '#A4C67C';
+    return '#7FA66A';
+};
 
-  // LineChart용 데이터: 모든 요일에 평균값을 동일하게 적용
-  const lineData = dataset.map(() => averageValue); // [50, 50, 50, ...]
+const averageValue =
+    data.reduce((sum, item) => sum + item.value, 0) / data.length;
 
-  return (
-    <Box sx={{ mb: 4 }}>
-      {/* BarChart: 막대 그래프 */}
-      <BarChart
-        width={350}
-        height={250}
-        xAxis={[
-          {
-            dataKey: 'day', // x축 레이블로 사용할 데이터 키
-            label: '요일',
-          },
-        ]}
-        series={[
-          {
-            dataKey: 'value', // y축 값으로 사용할 데이터 키
-            label: '미션 완료 수',
-            color: '#4caf50', // 막대그래프 색상
-          },
-        ]}
-        dataset={dataset} // 전체 데이터셋 전달
-      />
-      
-      {/* LineChart: 평균값을 선 그래프로 표시 */}
-      <LineChart
-        width={350}
-        height={250}
-        xAxis={[
-          {
-            dataKey: 'day', // x축 레이블로 사용할 데이터 키
-            label: '요일',
-          },
-        ]}
-        series={[
-          {
-            data: lineData, // 평균값 배열
-            label: '평균',
-            color: '#ff5252', // 선 그래프 색상
-          },
-        ]}
-      />
-    </Box>
-  );
+const coloredData = data.map((item) => ({
+    ...item,
+    color: getColor(item.value),
+}));
+
+const WeeklyChart = () => {
+
+    return (
+        <Box sx={style.boxStyle}>
+            <BarChart width={500} height={300} data={coloredData}>
+                <XAxis
+                    dataKey='day'
+                    stroke='#9e9e9e'
+                    tick={{
+                        fill: '#000000',
+                        fontSize: 12,
+                    }}
+                    tickMargin={10}
+                />
+                <YAxis
+                    ticks={[0, 50, 100]}
+                    stroke='#CCC'
+                    tick={{ fill: '#CCC', fontSize: 13 }}
+                />
+                <ReferenceLine
+                    y={averageValue}
+                    alwaysShow
+                    style={{ zIndex: 10 }}
+                    label={{
+                        position: 'left',
+                        value: '평균',
+                        fill: '#D27B90',
+                        fontSize: 15,
+                        fontWeight: '700',
+                    }}
+                    stroke='#D27B90'
+                    strokeWidth={2}
+                />
+                <Bar dataKey='value'>
+                    {coloredData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                </Bar>
+            </BarChart>
+        </Box>
+    );
 };
 
 export default WeeklyChart;
