@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import WeeklyChart from '@/pages/status/WeeklyChart';
 
 const meta: Meta<typeof WeeklyChart> = {
-  title: 'Components/WeeklyChart',
+  title: 'Status/WeeklyChart',
   component: WeeklyChart,
   tags: ['autodocs'],
   parameters: {
